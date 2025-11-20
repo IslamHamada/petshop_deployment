@@ -20,7 +20,8 @@ services:
       timeout: 5s
       retries: 5
     depends_on:
-      - service-registry
+      service-registry:
+        condition: service_healthy
     env_file: .env
 
   gateway:
