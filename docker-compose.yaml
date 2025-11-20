@@ -78,6 +78,8 @@ services:
     ports:
       - '8084:8084'
     depends_on:
-      - cart-service
-      - user-service
+      cart-service:
+        condition: service_healthy
+      user-service:
+        condition: service_healthy
     env_file: .env
