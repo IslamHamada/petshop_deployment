@@ -40,7 +40,7 @@ services:
     ports:
       - '8085:8085'
     healthcheck:
-      test: ["CMD-SHELL", "curl", "-f", "http://user-service:${USER_SERVICE_PORT}/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://user-service:8085/actuator/health"]
     depends_on:
       config-server:
         condition: service_healthy
