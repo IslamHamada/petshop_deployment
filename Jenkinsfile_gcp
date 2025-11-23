@@ -10,7 +10,7 @@ node {
             projectId: env.PROJECT_ID,
             clusterName: env.CLUSTER,
             location: env.ZONE,
-            manifestPattern: 'k8s/*.yaml',
+            manifestPattern: 'k8s/config-maps.yaml, k8s/mysql-deployment.yaml',
             credentialsId: env.PROJECT_ID,
             verifyDeployments: true])
     }
