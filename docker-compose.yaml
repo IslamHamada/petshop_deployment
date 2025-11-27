@@ -79,6 +79,8 @@ services:
     container_name: 'order-service'
     ports:
       - '8084:8084'
+    healthcheck:
+      test: ["CMD", 'curl', '-f', 'http://localhost:8084/actuator/health']
     depends_on:
       cart-service:
         condition: service_healthy
