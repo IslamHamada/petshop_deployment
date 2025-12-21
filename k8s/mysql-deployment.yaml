@@ -35,6 +35,10 @@ spec:
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: root
+          resources:
+            limits:
+              cpu: "1"
+              memory: "1Gi"
           volumeMounts:
             - name: mysql-persistent-storage
               mountPath: /var/lib/mysql
