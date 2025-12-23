@@ -29,3 +29,12 @@ metadata:
   name: frontend-cm
 data:
   frontend_url: https://34.54.201.1.sslip.io
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zipkin-cm
+data:
+  zipkin_url: zipkin-svc
