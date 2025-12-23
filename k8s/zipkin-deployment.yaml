@@ -10,15 +10,16 @@ spec:
     metadata:
       labels:
         app: zipkin
-    containers:
-      - name: zipkin
-        image: openzipkin/zipkin:latest
-        ports:
-          - containerPort: 9411
-        resources:
-          limits:
-            memory: "512Mi"
-            cpu: "50m"
+    spec:
+      containers:
+        - name: zipkin
+          image: openzipkin/zipkin:latest
+          ports:
+            - containerPort: 9411
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "50m"
 
 ---
 
