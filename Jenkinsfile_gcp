@@ -1,23 +1,10 @@
 node {
-    stage("Checkout"){
-        checkout([$class: 'GitSCM',
-         branches: [[name: '*/jenkins_gcp']],
-         userRemoteConfigs: [[credentialsId: 'git',
-         url: 'https://github.com/IslamHamada/petshop_deployment.git']]])
-    }
     stage("Deploy"){
         step([$class: 'KubernetesEngineBuilder',
             projectId: env.PROJECT_ID,
             clusterName: env.CLUSTER,
             location: env.ZONE,
-            manifestPattern: 'k8s/config-maps.yaml',
-            credentialsId: env.PROJECT_ID,
-            verifyDeployments: true])
-        step([$class: 'KubernetesEngineBuilder',
-            projectId: env.PROJECT_ID,
-            clusterName: env.CLUSTER,
-            location: env.ZONE,
-            manifestPattern: 'k8s/mysql-deployment.yaml',
+            manifestPattern: 'k8s/*.yaml',
             credentialsId: env.PROJECT_ID,
             verifyDeployments: true])
     }

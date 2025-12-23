@@ -6,7 +6,7 @@ services:
     ports:
       - '8081:8081'
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://service-registry:8081/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8081/actuator/health"]
     env_file: .env
 
   config-server:
@@ -15,7 +15,7 @@ services:
     ports:
       - '8082:8082'
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://config-server:8082/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8082/actuator/health"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -34,6 +34,8 @@ services:
     depends_on:
       config-server:
         condition: service_healthy
+      zipkin:
+        condition: service_started
     env_file: .env
 
   user-service:
@@ -42,10 +44,12 @@ services:
     ports:
       - '8085:8085'
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://user-service:8085/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8085/actuator/health"]
     depends_on:
       config-server:
         condition: service_healthy
+      zipkin:
+        condition: service_started
     env_file: .env
 
   product-service:
@@ -54,10 +58,12 @@ services:
     ports:
       - '8083:8083'
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://product-service:8083/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8083/actuator/health"]
     depends_on:
       config-server:
         condition: service_healthy
+      zipkin:
+        condition: service_started
     env_file: .env
 
   cart-service:
@@ -71,7 +77,7 @@ services:
       product-service:
         condition: service_healthy
       user-service:
-        condition: service_healthy
+        condition: service_started
     env_file: .env
 
   order-service:
@@ -85,5 +91,22 @@ services:
       cart-service:
         condition: service_healthy
       user-service:
-        condition: service_healthy
+        condition: service_started
     env_file: .env
+
+  frontend:
+    image: 'frontend:latest'
+    container_name: 'frontend'
+    ports:
+      - '8090:80'
+    depends_on:
+      gateway:
+        condition: service_healthy
+      order-service:
+        condition: service_healthy
+
+  zipkin:
+    image: 'openzipkin/zipkin:latest'
+    container_name: zipkin
+    ports:
+      - '9411:9411'
