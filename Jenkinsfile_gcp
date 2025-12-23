@@ -4,8 +4,24 @@ node {
             projectId: env.PROJECT_ID,
             clusterName: env.CLUSTER,
             location: env.ZONE,
-            manifestPattern: 'k8s',
+            manifestPattern: 'k8s/config-maps.yaml',
             credentialsId: env.PROJECT_ID,
             verifyDeployments: true])
+
+        step([$class: 'KubernetesEngineBuilder',
+              projectId: env.PROJECT_ID,
+              clusterName: env.CLUSTER,
+              location: env.ZONE,
+              manifestPattern: 'k8s/mysql-deployment.yaml',
+              credentialsId: env.PROJECT_ID,
+              verifyDeployments: true])
+
+        step([$class: 'KubernetesEngineBuilder',
+              projectId: env.PROJECT_ID,
+              clusterName: env.CLUSTER,
+              location: env.ZONE,
+              manifestPattern: 'k8s/zipkin-deployment.yaml',
+              credentialsId: env.PROJECT_ID,
+              verifyDeployments: true])
     }
 }
