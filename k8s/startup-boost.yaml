@@ -18,10 +18,10 @@ spec:
     containerPolicies:
       - containerName: ".*"
         fixedResources:
-          limits: "1"
-          requests: "1"
+          limits: "500m"
+          requests: "500m"
 
   durationPolicy:
     fixedDuration:
       unit: Seconds
-      value: 180
+      value: 30
