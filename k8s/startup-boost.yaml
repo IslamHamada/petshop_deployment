@@ -30,4 +30,4 @@ spec:
   durationPolicy:
     podCondition:
       unit: Seconds
-      value: 60
+      value: 180
