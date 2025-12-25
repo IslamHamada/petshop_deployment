@@ -32,13 +32,12 @@ node {
     }
 
     stage("Deploy kube-startup-cpu-boost"){
-        step([$class: 'KubernetesEngineBuilder',
-              projectId: env.PROJECT_ID,
-              clusterName: env.CLUSTER,
-              location: env.ZONE,
-              manifestPattern: 'k8s/kustomization.yaml',
-              credentialsId: env.PROJECT_ID,
-              verifyDeployments: false]) // Set to false, as CRDs don't "deploy" like pods
+        sh """
+            export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+            gcloud container clusters get-credentials ${env.CLUSTER} --region ${env.ZONE} --project ${env.PROJECT_ID}
+            # Use --validate=false to bypass the openapi check that's crashing
+            kubectl apply -k k8s/ --validate=false 
+        """
 
         step([$class: 'KubernetesEngineBuilder',
               projectId: env.PROJECT_ID,
