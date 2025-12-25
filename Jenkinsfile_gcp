@@ -32,11 +32,14 @@ node {
     }
 
     stage("Deploy kube-startup-cpu-boost"){
-        sh """
-            gcloud container clusters get-credentials ${env.CLUSTER} --region ${env.ZONE} --project ${env.PROJECT_ID}
-            kubectl apply -k k8s/
-        """
-        
+        step([$class: 'KubernetesEngineBuilder',
+              projectId: env.PROJECT_ID,
+              clusterName: env.CLUSTER,
+              location: env.ZONE,
+              manifestPattern: 'k8s/kustomization.yaml',
+              credentialsId: env.PROJECT_ID,
+              verifyDeployments: false]) // Set to false, as CRDs don't "deploy" like pods
+
         step([$class: 'KubernetesEngineBuilder',
               projectId: env.PROJECT_ID,
               clusterName: env.CLUSTER,
