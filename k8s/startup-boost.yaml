@@ -16,9 +16,9 @@ spec:
       - key: app.kubernetes.io/name
         operator: In
         values: [ "product-service-app",
-                  "user-service",
-                  "cart-service",
-                  "order-service",
+                  "user-service-app",
+                  "cart-service-app",
+                  "order-service-app",
                   "mysql" ]
 
   resourcePolicy:
