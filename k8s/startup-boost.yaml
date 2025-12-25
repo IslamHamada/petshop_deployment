@@ -13,13 +13,14 @@ metadata:
 spec:
   selector:
     matchExpressions:
-      - key: app.kubernetes.io/name
+      - key: app
         operator: In
-        values: [ "product-service-app",
-                  "user-service-app",
-                  "cart-service-app",
-                  "order-service-app",
-                  "mysql" ]
+        values:
+          - "product-service-app"
+          - "user-service-app"
+          - "cart-service-app"
+          - "order-service-app"
+          - "mysql"
 
   resourcePolicy:
     - containerName: ".*"
