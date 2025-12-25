@@ -30,13 +30,7 @@ node {
               credentialsId: env.PROJECT_ID,
               verifyDeployments: true])
 
-        step([$class: 'KubernetesEngineBuilder',
-              projectId: env.PROJECT_ID,
-              clusterName: env.CLUSTER,
-              location: env.ZONE,
-              manifestPattern: 'k8s/kube-startup-cpu-boost.yaml',
-              credentialsId: env.PROJECT_ID,
-              verifyDeployments: true])
+        sh "kubectl apply -k k8s/"
 
         step([$class: 'KubernetesEngineBuilder',
               projectId: env.PROJECT_ID,
