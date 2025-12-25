@@ -2,3 +2,28 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - https://github.com/google/kube-startup-cpu-boost/releases/download/v0.17.1/manifests.yaml
+
+---
+
+apiVersion: autoscaling.x-k8s.io/v1alpha1
+kind: StartupCPUBoost
+metadata:
+  name: boost-resources
+
+spec:
+  selector:
+    matchExpressions:
+      - key: app.kubernetes.io/name
+        operator: In
+        values: [ "product-service", "user-service", "cart-service", "order-service", "mysql" ]
+
+  resourcePolicy:
+    - containerName: ".*"
+      fixedResources:
+        limits:
+          cpu: "500m"
+
+  durationPolicy:
+    podCondition:
+      type: Ready
+      status: "True"
