@@ -22,6 +22,6 @@ spec:
           requests: "500m"
 
   durationPolicy:
-    podCondition:
-      type: Ready
-      status: "True"
+    fixedDuration:
+      unit: Seconds
+      value: 5
