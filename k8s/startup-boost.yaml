@@ -3,18 +3,17 @@ kind: StartupCPUBoost
 metadata:
   name: boost-resources
 
+selector:
+  matchExpressions:
+    - key: app
+      operator: In
+      values:
+        - "product-service-app"
+        - "user-service-app"
+        - "cart-service-app"
+        - "order-service-app"
+        - "mysql"
 spec:
-  selector:
-    matchExpressions:
-      - key: app
-        operator: In
-        values:
-          - "product-service-app"
-          - "user-service-app"
-          - "cart-service-app"
-          - "order-service-app"
-          - "mysql"
-
   resourcePolicy:
     containerPolicies:
       - containerName: ".*"
