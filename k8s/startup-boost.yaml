@@ -29,5 +29,5 @@ spec:
 
   durationPolicy:
     podCondition:
-      type: Ready
-      status: "True"
+      unit: Seconds
+      value: 60
