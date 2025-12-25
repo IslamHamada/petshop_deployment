@@ -18,8 +18,8 @@ spec:
     containerPolicies:
       - containerName: ".*"
         fixedResources:
-          limits:
-            cpu: "1"
+          limits: "1"
+          requests: "1"
 
   durationPolicy:
     fixedDuration:
