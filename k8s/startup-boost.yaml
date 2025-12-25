@@ -15,7 +15,11 @@ spec:
     matchExpressions:
       - key: app.kubernetes.io/name
         operator: In
-        values: [ "product-service", "user-service", "cart-service", "order-service", "mysql" ]
+        values: [ "product-service-app",
+                  "user-service",
+                  "cart-service",
+                  "order-service",
+                  "mysql" ]
 
   resourcePolicy:
     - containerName: ".*"
