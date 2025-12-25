@@ -24,4 +24,4 @@ spec:
   durationPolicy:
     fixedDuration:
       unit: Seconds
-      value: 5
+      value: 20
