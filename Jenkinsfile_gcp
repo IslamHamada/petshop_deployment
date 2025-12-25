@@ -30,7 +30,7 @@ node {
               credentialsId: env.PROJECT_ID,
               verifyDeployments: true])
 
-        sh "kubectl kustomize | kubectl apply -f -"
+        sh "kubectl kustomize k8s/ | kubectl apply -f -"
 
         step([$class: 'KubernetesEngineBuilder',
               projectId: env.PROJECT_ID,
