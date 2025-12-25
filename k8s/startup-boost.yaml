@@ -16,10 +16,11 @@ spec:
           - "mysql"
 
   resourcePolicy:
-    - containerName: ".*"
-      fixedResources:
-        limits:
-          cpu: "1"
+    containerPolicies:
+      - containerName: ".*"
+        fixedResources:
+          limits:
+            cpu: "1"
 
   durationPolicy:
     fixedDuration:
