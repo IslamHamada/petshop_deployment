@@ -12,6 +12,8 @@ selector:
         - "user-service-app"
         - "cart-service-app"
         - "order-service-app"
+        - "frontend-app"
+        - "zipkin"
         - "mysql"
 spec:
   resourcePolicy:
