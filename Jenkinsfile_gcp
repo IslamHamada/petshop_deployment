@@ -5,7 +5,7 @@ node {
                   userRemoteConfigs: [[credentialsId: 'git',
                   url: 'https://github.com/IslamHamada/petshop_deployment.git']]])
     }
-    stage("Deploy"){
+    stage("Deploy Pods"){
         step([$class: 'KubernetesEngineBuilder',
             projectId: env.PROJECT_ID,
             clusterName: env.CLUSTER,
@@ -29,15 +29,17 @@ node {
               manifestPattern: 'k8s/zipkin-deployment.yaml',
               credentialsId: env.PROJECT_ID,
               verifyDeployments: true])
+    }
 
-        step([$class: 'KubernetesEngineBuilder',
-              projectId: env.PROJECT_ID,
-              clusterName: env.CLUSTER,
-              location: env.ZONE,
-              manifestPattern: 'k8s/kustomization.yaml', // The plugin supports kustomize
-              credentialsId: env.PROJECT_ID,
-              verifyDeployments: true])
-
+    stage("Deploy kube-startup-cpu-boost"){
+        steps{
+            script {
+                sh """
+                    gcloud container clusters get-credentials ${env.CLUSTER} --region ${env.ZONE} --project ${env.PROJECT_ID}
+                    kubectl apply -k k8s/
+                """
+            }
+        }
         step([$class: 'KubernetesEngineBuilder',
               projectId: env.PROJECT_ID,
               clusterName: env.CLUSTER,
