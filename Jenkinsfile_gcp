@@ -30,13 +30,12 @@ node {
               credentialsId: env.PROJECT_ID,
               verifyDeployments: true])
 
-        stage("Deploy"){
-            step([$class: 'KubernetesEngineBuilder',
-                  projectId: env.PROJECT_ID,
-                  clusterName: env.CLUSTER,
-                  location: env.ZONE,
-                  manifestPattern: 'k8s/startup-boost.yaml',
-                  credentialsId: env.PROJECT_ID,
-                  verifyDeployments: true])
+        step([$class: 'KubernetesEngineBuilder',
+              projectId: env.PROJECT_ID,
+              clusterName: env.CLUSTER,
+              location: env.ZONE,
+              manifestPattern: 'k8s/startup-boost.yaml',
+              credentialsId: env.PROJECT_ID,
+              verifyDeployments: true])
     }
 }
