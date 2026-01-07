@@ -6,38 +6,10 @@ node {
                   url: 'https://github.com/IslamHamada/petshop_deployment.git']]])
     }
     stage("Deploy Pods"){
-        step([$class: 'KubernetesEngineBuilder',
-            projectId: env.PROJECT_ID,
-            clusterName: env.CLUSTER,
-            location: env.ZONE,
-            manifestPattern: 'k8s/config-maps.yaml',
-            credentialsId: env.PROJECT_ID,
-            verifyDeployments: true])
-
-        step([$class: 'KubernetesEngineBuilder',
-              projectId: env.PROJECT_ID,
-              clusterName: env.CLUSTER,
-              location: env.ZONE,
-              manifestPattern: 'k8s/mysql-deployment.yaml',
-              credentialsId: env.PROJECT_ID,
-              verifyDeployments: true])
-
-        step([$class: 'KubernetesEngineBuilder',
-              projectId: env.PROJECT_ID,
-              clusterName: env.CLUSTER,
-              location: env.ZONE,
-              manifestPattern: 'k8s/zipkin-deployment.yaml',
-              credentialsId: env.PROJECT_ID,
-              verifyDeployments: true])
-    }
-
-    stage("Deploy kube-startup-cpu-boost"){
-        step([$class: 'KubernetesEngineBuilder',
-              projectId: env.PROJECT_ID,
-              clusterName: env.CLUSTER,
-              location: env.ZONE,
-              manifestPattern: 'k8s/startup-boost.yaml',
-              credentialsId: env.PROJECT_ID,
-              verifyDeployments: true])
+        withCredentials([file(credentialsId: 'k3s-kubeconfig', variable: 'KUBECONFIG_FILE')]){
+            sh("kubectl --kubeconfig=${KUBECONFIG_FILE} apply -f k8s/config-maps.yaml")
+            sh("kubectl --kubeconfig=${KUBECONFIG_FILE} apply -f k8s/mysql-deployment.yaml")
+            sh("kubectl --kubeconfig=${KUBECONFIG_FILE} apply -f k8s/zipkin-deployment.yaml")
+        }
     }
 }
