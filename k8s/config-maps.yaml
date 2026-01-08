@@ -28,7 +28,7 @@ kind: ConfigMap
 metadata:
   name: frontend-cm
 data:
-  frontend_url: https://34.54.201.1.sslip.io
+  frontend_url: frontend.94.130.54.145.sslip.io
 
 ---
 
