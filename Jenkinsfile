@@ -10,6 +10,7 @@ node {
             sh("kubectl --kubeconfig=${KUBECONFIG_FILE} apply -f k8s/config-maps.yaml")
             sh("kubectl --kubeconfig=${KUBECONFIG_FILE} apply -f k8s/mysql-deployment.yaml")
             sh("kubectl --kubeconfig=${KUBECONFIG_FILE} apply -f k8s/zipkin-deployment.yaml")
+            sh("kubectl --kubeconfig=${KUBECONFIG_FILE} apply -f k8s/mongo-deployment.yaml")
         }
     }
 }
