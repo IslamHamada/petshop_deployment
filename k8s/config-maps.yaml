@@ -38,3 +38,11 @@ metadata:
   name: zipkin-cm
 data:
   zipkin_url: zipkin-svc
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-cm
+data:
+  mongo_url: mongo-svc
