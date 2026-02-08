@@ -65,7 +65,7 @@ kind: Service
 metadata:
   name: kafka-svc
 spec:
-  clusterIP: None
+#  clusterIP: None
   selector:
     app: kafka
   ports:
