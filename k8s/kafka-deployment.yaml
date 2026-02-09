@@ -45,6 +45,8 @@ spec:
               value: "1"
             - name: KAFKA_ADVERTISED_LISTENERS
               value: "PLAINTEXT://kafka-svc.default.svc.cluster.local:80"
+            - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+              value: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT"
             - name: KAFKA_LOG_DIRS
               value: "/var/lib/kafka/data"
           resources:
